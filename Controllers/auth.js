@@ -1,7 +1,7 @@
 // Importing necessary modules and functions
 const asyncErrorWrapper = require("express-async-handler");
 const { validateUserInput, comparePassword } = require("../Helpers/input/inputHelpers");
-const User = require("../models/user.model");
+const User = require("../models/user.data.model");
 
 // Registration endpoint
 const register = asyncErrorWrapper(async (req, res, next) => {

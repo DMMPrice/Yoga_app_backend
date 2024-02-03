@@ -26,7 +26,7 @@ const userSchema = new Schema({
 }, { timestamps: true }); // Adding timestamps to track creation and update times
 
 // Creating a User model using the userSchema
-const User = model("Profile", userSchema);
+const User = model("profile", userSchema);
 
 // Exporting the User model for use in other parts of the application
 module.exports = User;
