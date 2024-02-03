@@ -5,7 +5,7 @@ const path = require("path")
 
 
 // const IndexRoute = require("./Routers/index")
-const connectDatabase = require("./Helpers/database/connectDatabase")
+const connectDatabase = require("./Helpers/Database/connectDatabase")
 
 dotenv.config({
     path: '../Backend/.env'
