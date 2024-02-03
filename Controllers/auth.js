@@ -57,8 +57,6 @@ const login = asyncErrorWrapper(async (req, res) => {
             console.log("Not Found");
             return res.status(400).json("Not Found");
         }
-
-
         // Sending a successful response with the found user
         console.log("User Found");
         return res.status(201).json(user);
