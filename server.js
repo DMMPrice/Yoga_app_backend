@@ -4,8 +4,8 @@ const cors = require("cors")
 const path = require("path")
 
 
-// const IndexRoute = require("./Routers/index")
-const connectDatabase = require("./Helpers/Database/connectDatabase")
+const IndexRoute = require("./Routers/index")
+const connectDatabase = require("./Helpers/database/connectDatabase")
 
 dotenv.config({
     path: '../Backend/.env'
@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
     console.log("Server is working");
     res.status(201).send("Server is connected");
 });
-// app.use("/", IndexRoute)
+app.use("/", IndexRoute)
 
 
 const PORT = process.env.PORT || 5000;

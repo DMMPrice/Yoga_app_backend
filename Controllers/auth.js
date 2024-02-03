@@ -1,7 +1,7 @@
 // Importing necessary modules and functions
 const asyncErrorWrapper = require("express-async-handler");
 const { validateUserInput, comparePassword } = require("../Helpers/input/inputHelpers");
-const User = require("../Models/user.model");
+const User = require("../models/user.model");
 
 // Registration endpoint
 const register = asyncErrorWrapper(async (req, res, next) => {
@@ -24,6 +24,7 @@ const register = asyncErrorWrapper(async (req, res, next) => {
         });
 
         // Sending a successful response with the created user
+        console.log("User Created");
         res.status(201).send(newUser);
     } catch (error) {
         // Handling errors and sending an internal server error response
