@@ -46,7 +46,8 @@ const login = asyncErrorWrapper(async (req, res) => {
     const {email, password} = req.body;
     try {
         // Finding the user by email and including the password in the query
-        const user = await User.findOne({email}).select("+password");
+        // const user = await User.findOne({email: email}).select("+password");
+        const user = await User.findOne({email: email});
         // Comparing the provided password with the stored password
         if (comparePassword(password, user.password) === 'False') {
             console.log("Wrong Password");

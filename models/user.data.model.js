@@ -20,7 +20,7 @@ const userSchema = new Schema({
         type: String,
         minlength: [6, "Please provide a password with a minimum length of 6"],
         required: [true, "Please provide a password"],
-        select: false, // Password not selected by default in query results
+        // select: false, // Password not selected by default in query results
     },
     role: {
         type: String,
