@@ -7,29 +7,36 @@ const User = require("../models/user.data.model");
 const register = asyncErrorWrapper(async (req, res) => {
     // Extracting user input from request body
     const {fullName, email, password} = req.body;
+    let existingUser;
     try {
         // Checking if a user with the same email already exists
-        const existingUser = await User.findOne({email});
+        existingUser = await User.findOne({email: email});
+    } catch (error) {
+        // Handling errors and sending an internal server error response
+        console.log(error);
+        return (res.status(400).json('Logging in failed, please try again later.'));
 
-        if (existingUser) {
-            console.log("Same ID");
-            return res.status(400).json("Same ID");
-        }
+    }
+    if (existingUser) {
+        console.log("Same ID");
+        return (res.status(400).json("Same ID"));
+    }
 
-        // Creating a new user
-        const newUser = await User.create({
-            fullName,
-            email,
-            password
-        });
-
+    // Creating a new user
+    const newUser = new User({
+        fullName,
+        email,
+        password
+    });
+    try {
+        // Saving the created user to the database
         // Sending a successful response with the created user
         console.log("User Created");
-        res.status(201).json(newUser);
+        await newUser.save();
     } catch (error) {
         // Handling errors and sending an internal server error response
         console.error(error);
-        res.status(500).json("Internal Server Error");
+        return (res.status(404).json('Logging in failed, please try again later.'));
     }
 });
 
@@ -40,26 +47,25 @@ const login = asyncErrorWrapper(async (req, res) => {
     try {
         // Finding the user by email and including the password in the query
         const user = await User.findOne({email}).select("+password");
-
+        // Comparing the provided password with the stored password
+        if (comparePassword(password, user.password) === 'False') {
+            console.log("Wrong Password");
+            return res.status(404).json("Wrong Password");
+        }
         // Handling cases where the user is not found
         if (!user) {
             console.log("Not Found");
-            res.status(400).send("Not Found");
+            return res.status(400).json("Not Found");
         }
 
-        // Comparing the provided password with the stored password
-        if (!comparePassword(password, user.password)) {
-            console.log("Wrong Password");
-            res.status(404).send("Wrong Password");
-        }
 
         // Sending a successful response with the found user
         console.log("User Found");
-        res.status(201).json(user);
+        return res.status(201).json(user);
     } catch (error) {
         // Handling errors and sending an internal server error response
         console.error(error);
-        res.status(404).send("Internal Server Error");
+        return res.status(404).json("Internal Server Error");
     }
 });
 
