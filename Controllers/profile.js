@@ -48,7 +48,7 @@ const get = asyncErrorWrapper(async (req, res) => {
 });
 
 const update = asyncErrorWrapper(async (req, res) => {
-    const {userID, age, height, weight} = req.body;
+    const {userID, age, height, weight, transformation, targetWeight, targetDay} = req.body;
     const existingUserProfile = await userProfile.findOne({userID: userID});
     if (existingUserProfile === null) {
         console.log("User Profile not found. Create the profile first.");
@@ -56,7 +56,7 @@ const update = asyncErrorWrapper(async (req, res) => {
     } else {
         try {
             const updatedUserProfile = await userProfile.findByIdAndUpdate(existingUserProfile._id, {
-                userID, age, height, weight
+                userID, age, height, weight, transformation, targetWeight, targetDay
             }, {new: true});
             console.log("User Profile Updated");
             res.status(201).json(updatedUserProfile);

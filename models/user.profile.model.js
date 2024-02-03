@@ -23,6 +23,18 @@ const userSchema = new Schema({
         required: [true, "Please provide your weight"],
         default: 60
     },
+    transformation: {
+        type: String,
+        default: "Weight Loss"
+    },
+    targetWeight: {
+        type: Number,
+        default: 40
+    },
+    targetDay: {
+        type: Number,
+        default: 30
+    },
 }, { timestamps: true }); // Adding timestamps to track creation and update times
 
 // Creating a User model using the userSchema
