@@ -14,11 +14,11 @@ const create = asyncErrorWrapper(async (req, res) => {
 
         // Sending a successful response with the created user
         console.log("User Profile Created");
-        res.status(201).send(newUser);
+        res.status(201).json(newUser);
     } catch (error) {
         // Handling errors and sending an internal server error response
         console.error(error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).json("Internal Server Error");
     }
 });
 

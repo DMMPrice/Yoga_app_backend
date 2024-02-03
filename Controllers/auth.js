@@ -13,7 +13,7 @@ const register = asyncErrorWrapper(async (req, res) => {
 
         if (existingUser) {
             console.log("Same ID");
-            return res.status(400).send("Same ID");
+            return res.status(400).json("Same ID");
         }
 
         // Creating a new user
@@ -25,11 +25,11 @@ const register = asyncErrorWrapper(async (req, res) => {
 
         // Sending a successful response with the created user
         console.log("User Created");
-        res.status(201).send(newUser);
+        res.status(201).json(newUser);
     } catch (error) {
         // Handling errors and sending an internal server error response
         console.error(error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).json("Internal Server Error");
     }
 });
 
@@ -55,7 +55,7 @@ const login = asyncErrorWrapper(async (req, res) => {
 
         // Sending a successful response with the found user
         console.log("User Found");
-        res.status(201).send(`User Found: ${user}`);
+        res.status(201).json(user);
     } catch (error) {
         // Handling errors and sending an internal server error response
         console.error(error);
