@@ -13,9 +13,14 @@ const create = asyncErrorWrapper(async (req, res) => {
         userID, age, height, weight
     });
     const existingUser = await User.findById(userID);
+    const existingProfile = await userProfile.findOne({userID: userID});
     if (existingUser === null) {
         console.log("User Data not found. Create the account first.");
         return res.status(404).json("User Data not found. Create the account first.");
+    }
+    if (existingProfile != null) {
+        console.log("User Profile already exists");
+        return res.status(400).json("User Profile already exists");
     } else {
         try {
             // Saving the created user profile
@@ -29,6 +34,7 @@ const create = asyncErrorWrapper(async (req, res) => {
             res.status(500).json("Internal Server Error");
         }
     }
+
 });
 
 const get = asyncErrorWrapper(async (req, res) => {
