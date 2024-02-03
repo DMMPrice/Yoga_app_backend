@@ -3,7 +3,7 @@ const asyncErrorWrapper = require("express-async-handler");
 const Profile = require("../models/user.profile.model");
 
 // Profile creation endpoint
-const create = asyncErrorWrapper(async (req, res, next) => {
+const create = asyncErrorWrapper(async (req, res) => {
     // Extracting user input from request body
     const {userID, age, height, weight} = req.body;
     try {

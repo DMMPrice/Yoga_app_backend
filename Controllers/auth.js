@@ -1,15 +1,15 @@
 // Importing necessary modules and functions
 const asyncErrorWrapper = require("express-async-handler");
-const { validateUserInput, comparePassword } = require("../Helpers/input/inputHelpers");
+const {comparePassword} = require("../Helpers/input/inputHelpers");
 const User = require("../models/user.data.model");
 
 // Registration endpoint
-const register = asyncErrorWrapper(async (req, res, next) => {
+const register = asyncErrorWrapper(async (req, res) => {
     // Extracting user input from request body
-    const { fullName, email, password } = req.body;
+    const {fullName, email, password} = req.body;
     try {
         // Checking if a user with the same email already exists
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({email});
 
         if (existingUser) {
             console.log("Same ID");
@@ -34,12 +34,12 @@ const register = asyncErrorWrapper(async (req, res, next) => {
 });
 
 // Login endpoint
-const login = asyncErrorWrapper(async (req, res, next) => {
+const login = asyncErrorWrapper(async (req, res) => {
     // Extracting user input from request body
-    const { email, password } = req.body;
+    const {email, password} = req.body;
     try {
         // Finding the user by email and including the password in the query
-        const user = await User.findOne({ email }).select("+password");
+        const user = await User.findOne({email}).select("+password");
 
         // Handling cases where the user is not found
         if (!user) {
